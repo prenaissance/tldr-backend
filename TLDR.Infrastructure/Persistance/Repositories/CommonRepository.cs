@@ -5,8 +5,8 @@ namespace TLDR.Infrastructure.Persistance.Repositories;
 
 public class CommonRepository<T> : IRepository<T> where T : BaseEntity<Guid>
 {
-    private readonly TldrDbContext _context;
-    private readonly DbSet<T> _dbSet;
+    protected readonly TldrDbContext _context;
+    protected readonly DbSet<T> _dbSet;
 
     public CommonRepository(TldrDbContext context)
     {

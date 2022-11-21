@@ -7,6 +7,7 @@ using TLDR.Domain.Entities.Common.Abstractions;
 using TLDR.Infrastructure.Persistance.Repositories;
 using TLDR.Domain.Entities.Authentication;
 using TLDR.Domain.Entities.QnA;
+using TLDR.Domain.Entities.QnA.Repositories;
 
 namespace TLDR.Infrastructure;
 
@@ -20,9 +21,9 @@ public static class DependencyInjection
                 b => b.MigrationsAssembly(typeof(TldrDbContext).Assembly.FullName)));
 
         services.AddSingleton<IJwtGenerator, JwtGenerator>();
-        services.AddScoped<IRepository<User>, CommonRepository<User>>();
-        services.AddScoped<IRepository<Question>, CommonRepository<Question>>();
-        services.AddScoped<IRepository<Answer>, CommonRepository<Answer>>();
+        services.AddTransient<IRepository<User>, CommonRepository<User>>();
+        services.AddTransient<IQuestionRepository, QuestionRepository>();
+        services.AddTransient<IAnswerRepository, AnswerRepository>();
 
         return services;
     }
