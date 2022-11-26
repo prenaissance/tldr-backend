@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Identity.Web;
 using TLDR.Application;
 using TLDR.Infrastructure;
 
@@ -17,6 +20,10 @@ public class Startup
         services.AddInfrastructure(_configuration);
         services.AddApplication();
 
+        services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+            .AddMicrosoftIdentityWebApp(_configuration.GetSection("AzureAd"))
+            .EnableTokenAcquisitionToCallDownstreamApi()
+            .AddInMemoryTokenCaches();
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
@@ -29,13 +36,15 @@ public class Startup
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-
-        app.UseHttpsRedirection();
-
+        if (env.IsProduction())
+        {
+            app.UseHttpsRedirection();
+        }
 
         app.UseRouting();
 
         app.UseAuthorization();
+        app.UseAuthentication();
 
         app.UseEndpoints(endpoints =>
         {

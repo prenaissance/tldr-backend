@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TLDR.Infrastructure.Persistance;
 
@@ -11,9 +12,11 @@ using TLDR.Infrastructure.Persistance;
 namespace TLDR.Infrastructure.Migrations
 {
     [DbContext(typeof(TldrDbContext))]
-    partial class TldrDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221123132554_Activities")]
+    partial class Activities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

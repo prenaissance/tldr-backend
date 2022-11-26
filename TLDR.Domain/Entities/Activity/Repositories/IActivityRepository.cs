@@ -2,7 +2,8 @@ using TLDR.Domain.Entities.Common.Abstractions;
 
 namespace TLDR.Domain.Entities.Activity.Repositories;
 
-public interface IActivityRepository : IRepository<Activity>
+public interface IActivityRepository : IRepository<ActivityEvent>
 {
-    IQueryable<Activity> GetAllAggregates();
+    IList<ActivityEvent> GetByActorId(Guid actorId, int page, int pageSize);
+    bool AddEvent(Guid actorId, ActivityEvent activityEvent);
 }
